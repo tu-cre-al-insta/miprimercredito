@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nequi - ¡Ups, algo salió mal!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+        }
+        .logo {
+            margin-bottom: 25px;
+        }
+        .logo img {
+            width: 70px;
+            height: auto;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #21002b;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #e53935;
+            margin-bottom: 20px;
+        }
+        .mensaje-principal {
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            padding: 0 10px;
+        }
+        .mensaje-principal strong {
+            color: #21002b;
+        }
+        .info-box {
+            background: #f8f0ff;
+            padding: 25px 20px;
+            border-radius: 18px;
+            margin: 20px 0 25px;
+            text-align: left;
+            border-left: 4px solid #ff008c;
+        }
+        .info-box p {
+            margin-bottom: 12px;
+            font-size: 15px;
+            color: #333;
+        }
+        .info-box ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        .info-box li {
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #555;
+        }
+        .mensaje-final {
+            font-size: 16px;
+            font-weight: 600;
+            color: #21002b;
+            margin: 20px 0;
+            line-height: 1.5;
+        }
+        .btn-volver {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: #ff008c;
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            margin-top: 25px;
+            box-shadow: 0 4px 15px rgba(255, 0, 140, 0.3);
+            transition: all 0.3s;
+        }
+        .btn-volver:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 0, 140, 0.4);
+        }
+        .footer-note {
+            margin-top: 30px;
+            color: #bbb;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://i.ibb.co/HDycgPYf/nequi.png" alt="Nequi Logo">
+        </div>
+        
+        <h1>Nequi</h1>
+        
+        <h2>¡Ups, algo salió mal!</h2>
+        
+        <div class="mensaje-principal" id="mensajeMonto">
+            En este momento no pudimos terminar el proceso de validación con el crédito solicitado por un valor de <strong>$ 100.000</strong>.
+        </div>
+        
+        <div class="info-box">
+            <p><strong>Pudo ser por los siguientes motivos:</strong></p>
+            <ul>
+                <li>Ingresaste mal la información solicitada</li>
+                <li>El monto solicitado en este momento no es posible desembolsarlo (solicita un monto menor)</li>
+                <li>Fallas en tu operador o servidor a la hora de terminar el proceso</li>
+            </ul>
+        </div>
+        
+        <div class="mensaje-final">
+            ¡NO TE RINDAS!, En unos momentos serás contactado por uno de nuestros asesores virtuales para completar la solicitud de tu crédito.
+        </div>
+        
+        <a href="index.html" class="btn-volver">Volver al inicio</a>
+        
+        <div class="footer-note">
+            Nequi © 2024 - Soporte: 01-8000-519-519
+        </div>
+    </div>
+
+    <script>
+        // Obtener el monto guardado en localStorage
+        const montoGuardado = localStorage.getItem('montoCredito') || '100000';
+        const montoFormateado = parseInt(montoGuardado).toLocaleString('de-DE');
+        
+        // Actualizar el mensaje con el monto
+        const mensajeMonto = document.getElementById('mensajeMonto');
+        mensajeMonto.innerHTML = `En este momento no pudimos terminar el proceso de validación con el crédito solicitado por un valor de <strong>$ ${montoFormateado}</strong>.`;
+    </script>
+</body>
+</html>

