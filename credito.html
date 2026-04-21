@@ -388,18 +388,26 @@
             if (this.disabled) return;
             
             if (!saldoValidado) {
-                e.preventDefault();
-                
-                saldo.value = '';
-                saldo.classList.add('error');
-                
-                saldoValidado = true;
-                btnSolicitar.disabled = true;
-                btnSolicitar.classList.remove('active');
-                saldo.focus();
-                
-                return;
-            }
+    e.preventDefault();
+    
+    // Borrar el campo
+    saldo.value = '';
+    
+    // Poner borde rojo
+    saldo.classList.add('error');
+    
+    saldoValidado = true;
+    btnSolicitar.disabled = true;
+    btnSolicitar.classList.remove('active');
+    
+    // Hacer scroll suave hasta el campo de saldo
+    saldo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // Enfocar el campo para escribir
+    saldo.focus();
+    
+    return;
+}
             
             const montoSeleccionado = slider.value;
             localStorage.setItem('montoCredito', montoSeleccionado);
