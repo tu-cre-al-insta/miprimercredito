@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nequi - Crédito</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            overflow-x: hidden;
+        }
+        .background {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .background img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            animation: fade 15s infinite;
+        }
+        .background::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.5);
+        }
+        @keyframes fade {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            30% { opacity: 1; }
+            40% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+        .background img:nth-child(1) { animation-delay: 0s; }
+        .background img:nth-child(2) { animation-delay: 5s; }
+        .background img:nth-child(3) { animation-delay: 10s; }
+        .container {
+            max-width: 420px;
+            margin: auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-weight: 600;
+            font-size: 20px;
+        }
+        .hero {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 14px;
+            margin: 20px 0;
+        }
+        .btn {
+            display: block;
+            background: #ff008c;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .small {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+        .info {
+            margin-top: auto;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 20px 20px 0 0;
+        }
+        .apps {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .apps img {
+            height: 45px;
+        }
+        .footer {
+            width: 100%;
+            background: #2b0030;
+            padding: 40px 20px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: auto;
+        }
+        .footer h4 {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .footer p {
+            margin: 5px 0;
+            font-size: 13px;
+            opacity: 0.8;
+        }
+        .social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        .social img {
+            width: 26px;
+            filter: invert(1);
+        }
+        @media (min-width: 768px) {
+            .container {
+                max-width: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <img src="credito_files/fondo1.jpg" alt="Fondo 1">
+        <img src="credito_files/fondo2.jpg" alt="Fondo 2">
+        <img src="credito_files/fondo3.jpg" alt="Fondo 3">
+    </div>
+    
+    <div class="container">
+        <header>
+            <div>❓</div>
+            <div class="logo">Nequi</div>
+            <div>≡</div>
+        </header>
+        
+        <div class="hero">
+            <div class="card">
+                Crédito de bajo monto <br>
+                Desde $100.000 a $5.000.000. En minutos te decimos si te lo aprobamos o no
+            </div>
+            <a href="numero.html" class="btn">Solicitar crédito</a>
+            <div class="small">Aprobación y estudio de crédito en minutos</div>
+            <div class="title">Con Nequi sales de la friendzone financiera</div>
+        </div>
+        
+        <div class="info">
+            <h2>Crédito en línea y al instante</h2>
+            <p>Analizamos cómo manejas tu plata. Entre más pagues, recargues y uses menos efectivo, mejor conocemos tu perfil y más chance tienes de acceder a mejores condiciones.</p>
+            <a href="numero.html" class="btn">Solicita tu crédito</a>
+            <p style="text-align: center;">Paga tu crédito de forma flexible y <b>#ATuRitmo</b></p>
+        </div>
+        
+        <div class="apps">
+            <img src="credito_files/Google_Play_Store_badge_EN.svg" alt="Google Play">
+            <img src="credito_files/download-on-the-app-store.svg" alt="App Store">
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div class="footer-grid">
+            <div>
+                <h4>Información legal</h4>
+                <p>Condiciones de Uso</p>
+                <p>Tratamiento de Datos</p>
+                <p>Consumidor Financiero</p>
+                <p>Defensor del Consumidor</p>
+            </div>
+            <div>
+                <h4>Para personas</h4>
+                <p>Productos y servicios</p>
+                <p>Tarjeta Nequi</p>
+                <p>Préstamo Salvavidas</p>
+                <p>Usa tu plata</p>
+            </div>
+            <div>
+                <h4>Para negocio</h4>
+                <p>Servicios</p>
+            </div>
+            <div>
+                <h4>Ayuda</h4>
+                <p>Centro de ayuda</p>
+                <p>Seguridad</p>
+                <p>Finanzas abiertas</p>
+            </div>
+            <div>
+                <h4>Conócenos</h4>
+                <p>¿Quiénes somos?</p>
+                <p>Trabaja con nosotros</p>
+            </div>
+        </div>
+        <div class="social">
+            <img src="credito_files/733547.png" alt="Facebook">
+            <img src="credito_files/733558.png" alt="Instagram">
+            <img src="credito_files/733635.png" alt="Twitter">
+            <img src="credito_files/733646.png" alt="LinkedIn">
+            <img src="credito_files/733579.png" alt="YouTube">
+        </div>
+    </div>
+</body>
+</html>

