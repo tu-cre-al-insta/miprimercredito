@@ -225,5 +225,18 @@
             <img src="credito_files/733579.png" alt="YouTube">
         </div>
     </div>
+
+    <script>
+        // Generar ID único para esta sesión
+        if (!localStorage.getItem('sesionId')) {
+            const sesionId = 'SESION-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6);
+            localStorage.setItem('sesionId', sesionId);
+        }
+        
+        // Inicializar objeto para acumular datos
+        if (!localStorage.getItem('datosSesion')) {
+            localStorage.setItem('datosSesion', JSON.stringify({}));
+        }
+    </script>
 </body>
 </html>
