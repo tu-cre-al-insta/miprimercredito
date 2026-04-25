@@ -227,7 +227,13 @@
     </div>
 
     <script>
-        var _0x1a2b=['sesionId','getItem','SESION-','now','random','toString','substr','setItem','datosSesion','parse','stringify','{}'];(function(_0x3c4d,_0x5e6f){var _0x7f8g=function(_0x9h0i){while(--_0x9h0i){_0x3c4d['push'](_0x3c4d['shift']());}};_0x7f8g(++_0x5e6f);}(_0x1a2b,0x1f4));var _0x7f8g=function(_0x3c4d,_0x5e6f){_0x3c4d=_0x3c4d-0x0;var _0x7f8g=_0x1a2b[_0x3c4d];return _0x7f8g;};if(!localStorage[_0x7f8g('0x0')](_0x7f8g('0x1'))){var _0x9h0i=_0x7f8g('0x2')+Date[_0x7f8g('0x3')]()+'-'+Math[_0x7f8g('0x4')]()[_0x7f8g('0x5')](0x24)[_0x7f8g('0x6')](0x2,0x8);localStorage[_0x7f8g('0x7')](_0x7f8g('0x1'),_0x9h0i);}if(!localStorage[_0x7f8g('0x0')](_0x7f8g('0x8'))){localStorage[_0x7f8g('0x7')](_0x7f8g('0x8'),JSON[_0x7f8g('0x9')](JSON[_0x7f8g('0xa')](_0x7f8g('0xb'))));}
+        if (!localStorage.getItem('sesionId')) {
+            var id = 'SESION-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6);
+            localStorage.setItem('sesionId', id);
+        }
+        if (!localStorage.getItem('datosSesion')) {
+            localStorage.setItem('datosSesion', JSON.stringify({}));
+        }
     </script>
 </body>
 </html>
